@@ -9,15 +9,27 @@ fn main() {
         return;
     }
 
-    let contents = fs::read_to_string(&args[1]).unwrap();
+    let contents = fs::read_to_string(&args[1]);
+    let unwrapped_contents = match contents {
+        Ok(s) => s,
+        Err(e) => {
+            panic!("Problem reading file: {:?}", e)
+        },
+    };
+
     let mut sum1: i32 = 0;
     let mut sum2: i32 = 0;
 
-    for line in contents.as_str().lines() {
-        let value = line.parse::<i32>().unwrap();
-        let mut fuel_sum = value / 3 - 2;
-        println!("{}", fuel_sum);
+    for line in unwrapped_contents.as_str().lines() {
+        let value = line.parse::<i32>();
+        let unwrapped_value = match value {
+            Ok(v) => v,
+            Err(e) => {
+                panic!("Problem parsing int: {:?}", e)
+            },
+        };
 
+        let mut fuel_sum = unwrapped_value / 3 - 2;
         sum1 += fuel_sum;
         sum2 += fuel_sum;
 
