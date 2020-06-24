@@ -1,7 +1,6 @@
 use std::env;
 use std::fs;
 
-
 fn run_program(mut state: Vec<usize>, noun: usize, verb: usize) -> usize {
     let mut i = 0;
     state[1] = noun;
@@ -20,18 +19,15 @@ fn run_program(mut state: Vec<usize>, noun: usize, verb: usize) -> usize {
 
         if instruction == 1 {
             state[idxs[2]] = state[idxs[0]] + state[idxs[1]];
-        }
-        else if instruction == 2 {
+        } else if instruction == 2 {
             state[idxs[2]] = state[idxs[0]] * state[idxs[1]];
-        }
-        else {
+        } else {
             panic!("Unknown instruction");
         }
     }
 
     return state[0];
 }
-
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -44,14 +40,14 @@ fn main() {
     let contents = fs::read_to_string(&args[1]);
     let unwrapped_contents = match contents {
         Ok(s) => s,
-        Err(e) => {
-            panic!("Problem reading file: {:?}", e)
-        },
+        Err(e) => panic!("Problem reading file: {:?}", e),
     };
 
-    let values: Vec<usize> = unwrapped_contents.trim().split(",").map(
-        |v| v.parse::<usize>().unwrap()
-    ).collect();
+    let values: Vec<usize> = unwrapped_contents
+        .trim()
+        .split(",")
+        .map(|v| v.parse::<usize>().unwrap())
+        .collect();
 
     let result1 = run_program(values.clone(), 12, 2);
     let mut result2 = 0;
@@ -70,5 +66,4 @@ fn main() {
 
     println!("=== Part One ===");
     println!("Result: {}", result2);
-
 }

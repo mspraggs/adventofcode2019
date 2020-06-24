@@ -3,7 +3,7 @@ use std::fs;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    
+
     if args.len() != 2 {
         println!("Usage: {} <input file>", args[0]);
         return;
@@ -12,9 +12,7 @@ fn main() {
     let contents = fs::read_to_string(&args[1]);
     let unwrapped_contents = match contents {
         Ok(s) => s,
-        Err(e) => {
-            panic!("Problem reading file: {:?}", e)
-        },
+        Err(e) => panic!("Problem reading file: {:?}", e),
     };
 
     let mut sum1: i32 = 0;
@@ -24,9 +22,7 @@ fn main() {
         let value = line.parse::<i32>();
         let unwrapped_value = match value {
             Ok(v) => v,
-            Err(e) => {
-                panic!("Problem parsing int: {:?}", e)
-            },
+            Err(e) => panic!("Problem parsing int: {:?}", e),
         };
 
         let mut fuel_sum = unwrapped_value / 3 - 2;

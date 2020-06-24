@@ -29,18 +29,14 @@ fn is_candidate(num: usize, disjoint_pairs: bool) -> bool {
     return counts.iter().any(|n| *n > 1);
 }
 
-
 fn main() {
-
     let range = 356261..846303;
 
-    let candidate_count_part_1 = range.clone().filter(
-        |n| is_candidate(*n, false)
-    ).count();
-    let candidate_count_part_2 = range.clone().filter(
-        |n| is_candidate(*n, true)
-    ).count();
-    
+    let candidate_count_part_1 =
+        range.clone().filter(|n| is_candidate(*n, false)).count();
+    let candidate_count_part_2 =
+        range.clone().filter(|n| is_candidate(*n, true)).count();
+
     println!("=== Part One ===");
     println!("Num candidates = {}", candidate_count_part_1);
     println!("=== Part Two ===");
